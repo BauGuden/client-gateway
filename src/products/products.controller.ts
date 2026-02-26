@@ -30,7 +30,7 @@ export class ProductsController {
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-
+ 
     return this.productClient.send({ cmd: 'find_one_product' }, { id: parseInt(id) })
     .pipe(
       catchError( err => {
