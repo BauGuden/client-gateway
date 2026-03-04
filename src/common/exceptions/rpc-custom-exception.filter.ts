@@ -12,6 +12,13 @@ export class RpcCustomExceptionFilter implements ExceptionFilter {
 
     const rpcError = exception.getError();
 
+    if( rpcError.toString().includes('Empty responses') ) {
+      return response.status(404).json({
+        statusCode: 404,
+        message: rpcError.toString().substring(0, rpcError.toString().indexOf('(')-1),
+      });
+    }
+
     if ( 
       typeof rpcError === 'object' && 
       rpcError !== null &&
